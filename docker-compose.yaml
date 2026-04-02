@@ -1,0 +1,48 @@
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    user: root
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - TZ=Asia/Shanghai
+      - GENERIC_TIMEZONE=Asia/Shanghai
+      - N8N_RUNNERS_ENABLED=true
+      # - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+
+      # ===== 關鍵：解除文件系統寫入權限 =====
+      - N8N_BLOCK_FS_WRITE_ACCESS=false
+
+      # ===== 解除所有節點 =====
+      # - NODES_EXCLUDE=[]
+
+      # ===== 解除代碼能力 =====
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+      - NODE_FUNCTION_ALLOW_EXTERNAL=*
+
+      # ===== 允許社區節點 =====
+      - N8N_UNVERIFIED_PACKAGES_ENABLED=true
+
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  # ===== MCP server for OpenCode MCP =====
+  mcp:
+    image: opencode/mcp-server:latest
+    container_name: mcp
+    restart: unless-stopped
+    depends_on:
+      - n8n
+    ports:
+      - "5679:5679"
+    # Use example env by default so local `docker compose config` works without secrets.
+    env_file:
+      - .opencode/mcp/.env.example
+    volumes:
+      - mcp_data:/data
+
+volumes:
+  n8n_data:
+  mcp_data:

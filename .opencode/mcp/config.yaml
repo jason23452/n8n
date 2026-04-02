@@ -1,0 +1,11 @@
+# Example MCP server config (optional)
+server:
+  port: 5679
+  external_url: "http://localhost:5679"
+auth:
+  api_token: "changeme_replace_with_real_token"
+storage:
+  type: file
+  path: /data
+logging:
+  level: info
