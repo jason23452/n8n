@@ -1,0 +1,5 @@
+For any task about n8n workflows, nodes, health checks, versions, executions, or instance status:
+- Prefer tools from MCP server "n8n-mcp"
+- Do not use Notion or other MCP servers unless the user explicitly asks
+- If n8n-mcp tools are unavailable, say so explicitly
+- Before answering, check available n8n-mcp tools and choose the narrowest relevant one

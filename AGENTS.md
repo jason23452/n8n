@@ -165,3 +165,16 @@ If a future application layer is added, prefer adding explicit per-file or per-m
   }
 }
 
+## agent set
+"agent": {
+    "n8n-operator": {
+      "description": "Handle n8n workflows, nodes, health checks, and version queries",
+      "prompt": "{file:./prompts/n8n-operator.txt}",
+      "permission": {
+        "*": "ask",
+        "n8n-mcp_*": "allow",
+        "notion_*": "deny"
+      }
+    }
+  }
+
